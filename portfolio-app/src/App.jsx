@@ -30,23 +30,23 @@ const SKILLS = [
   {
     name: 'Frontend',
     icon: <Layout className="w-6 h-6" />,
-    tools: ['React.js', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind'],
   },
   {
     name: 'Backend',
     icon: <Database className="w-6 h-6" />,
-    tools: ['Node.js', 'PostgreSQL', 'Express', 'Firebase'],
+    tools: ['Node.js', 'Express', 'MongoDB', 'Firebase', 'HapiJS'],
   },
   {
     name: 'Tools',
     icon: <Terminal className="w-6 h-6" />,
-    tools: ['Git', 'Docker', 'VS Code', 'Figma'],
+    tools: ['Git', 'Docker', 'VS Code', 'Postman', 'Vite'],
   },
 ];
 
 const PROJECTS = [
   {
-    title: 'E-Commerce Dashboard',
+    title: 'Nutrify - Food Delivery WebApp',
     desc: 'Platform manajemen inventaris dan analitik penjualan real-time dengan visualisasi data interaktif.',
     tags: ['React', 'Chart.js', 'Supabase'],
     github: '#',
@@ -55,7 +55,7 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
   },
   {
-    title: 'AI Chat Interface',
+    title: 'Explore Indonesia - Travel Guide',
     desc: 'Antarmuka obrolan minimalis yang terintegrasi dengan OpenAI API, mendukung markdown dan syntax highlighting.',
     tags: ['Next.js', 'Tailwind', 'OpenAI API'],
     github: '#',
@@ -63,15 +63,15 @@ const PROJECTS = [
     image:
       'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
   },
-  {
-    title: 'Travel Booking App',
-    desc: 'Aplikasi pemesanan perjalanan dengan fitur pencarian destinasi, filter harga, dan integrasi peta.',
-    tags: ['React Native', 'Firebase', 'Maps API'],
-    github: '#',
-    demo: '#',
-    image:
-      'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800',
-  },
+  // {
+  //   title: 'Travel Booking App',
+  //   desc: 'Aplikasi pemesanan perjalanan dengan fitur pencarian destinasi, filter harga, dan integrasi peta.',
+  //   tags: ['React Native', 'Firebase', 'Maps API'],
+  //   github: '#',
+  //   demo: '#',
+  //   image:
+  //     'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800',
+  // },
 ];
 
 // --- Komponen UI Reusable ---
@@ -236,12 +236,16 @@ export default function App() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Halo, saya <span className="text-slate-200 font-semibold">Alex Developer</span>.
+              Halo, saya <span className="text-slate-200 font-semibold">Muhammad Rafli</span>.
               Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi web modern, cepat, dan
               responsif.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/resume.pdf" variant="outline" icon={ExternalLink}>
+              <Button
+                href="https://drive.usercontent.google.com/download?id=1ozOLF2ugRb7RvJ8uQtvbbK7pqeBuCaXm&export=download&authuser=0&confirm=t&uuid=21c8adc6-9dad-4f30-9dfb-1c83d16f7cac&at=APcXIO2jtERFEb__5L9CDKRenW6G:1771662057062"
+                variant="outline"
+                icon={ExternalLink}
+              >
                 Unduh Resume
               </Button>
             </div>
@@ -403,7 +407,7 @@ export default function App() {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="outline" href="https://github.com" icon={Github}>
+            <Button variant="outline" href="https://github.com/Atheraf3" icon={Github}>
               Lihat Proyek Lainnya di GitHub
             </Button>
           </div>
@@ -433,7 +437,7 @@ export default function App() {
                 </div>
                 <div className="ml-4 text-left">
                   <p className="text-sm text-slate-500">Email</p>
-                  <p className="text-lg text-white font-medium">hello@alexdev.com</p>
+                  <p className="text-lg text-white font-medium">r4flimhmmd@gmail.com</p>
                 </div>
               </a>
 
@@ -446,7 +450,7 @@ export default function App() {
                 </div>
                 <div className="ml-4 text-left">
                   <p className="text-sm text-slate-500">WhatsApp</p>
-                  <p className="text-lg text-white font-medium">+62 812 3456 789</p>
+                  <p className="text-lg text-white font-medium">+6281213014738 </p>
                 </div>
               </a>
 
@@ -459,19 +463,19 @@ export default function App() {
                 </div>
                 <div className="ml-4 text-left">
                   <p className="text-sm text-slate-500">Instagram</p>
-                  <p className="text-lg text-white font-medium">@alexdeveloper</p>
+                  <p className="text-lg text-white font-medium">@_.mrafli</p>
                 </div>
               </a>
 
               <div className="flex gap-4 mt-4 justify-center w-full">
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/mhmmdrafli3"
                   className="p-3 rounded-full bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500 transition-all"
                 >
                   <Linkedin size={24} />
                 </a>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Atheraf3"
                   className="p-3 rounded-full bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500 transition-all"
                 >
                   <Github size={24} />
@@ -490,10 +494,10 @@ export default function App() {
             <span className="font-bold text-xl text-white">DevPortfolio.</span>
           </div>
           <p className="text-slate-500 text-sm mb-6">
-            Didesain dan dibangun dengan hati-hati menggunakan React & Tailwind CSS.
+            Didesain dan dibangun dengan hati-hati menggunakan React & Tailwind.
           </p>
           <div className="text-slate-600 text-xs">
-            &copy; {new Date().getFullYear()} Alex Developer. All rights reserved.
+            &copy; {new Date().getFullYear()} Muhammad Rafli. All rights reserved.
           </div>
         </div>
       </footer>
