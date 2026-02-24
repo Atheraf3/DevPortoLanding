@@ -47,12 +47,12 @@ const SKILLS = [
 const PROJECTS = [
   {
     title: 'Nutrify - Food Delivery WebApp',
-    desc: 'Platform manajemen inventaris dan analitik penjualan real-time dengan visualisasi data interaktif.',
-    tags: ['React', 'Chart.js', 'Supabase'],
-    github: '#',
-    demo: '#',
+    desc: 'Nutrify adalah panduan nutrisi cerdas yang membantu pengguna memilih makanan sesuai kondisi kesehatan mereka.',
+    tags: ['Next.JS', 'Hapi.JS', 'MongoDB', 'Tailwind'],
+    github: 'https://github.com/Capstone-Team-Nutrify',
+    demo: 'https://www.nutrify.web.id/',
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
+      'https://raw.githubusercontent.com/Capstone-Team-Nutrify/.github/56b5954f90c6f013be934291b006e3a732c9c0bb/profile/nutrify-thumbnail.png?auto=format&fit=crop&q=80&w=800',
   },
   {
     title: 'Explore Indonesia - Travel Guide',
@@ -227,7 +227,7 @@ export default function App() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-6 border border-emerald-500/20">
-              Available for Freelance & Full-time
+              Available for Internships, Freelance, and Full-time.
             </span>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
               Membangun Pengalaman Digital yang{' '}
@@ -303,7 +303,7 @@ export default function App() {
               </p>
               <div className="mt-8">
                 <div>
-                  <h4 className="text-emerald-400 font-bold text-lg">3.95</h4>
+                  <h4 className="text-emerald-400 font-bold text-lg">3.67</h4>
                   <p className="text-sm text-slate-500">IPK Saat Ini</p>
                 </div>
               </div>
@@ -429,7 +429,7 @@ export default function App() {
 
             <div className="flex flex-col gap-6 items-center">
               <a
-                href="mailto:hello@alexdev.com"
+                href="mailto:r4flimhmmd@gmail.com"
                 className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
@@ -442,7 +442,7 @@ export default function App() {
               </a>
 
               <a
-                href="https://wa.me/628123456789"
+                href="https://wa.me/6281213014738"
                 className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
@@ -450,12 +450,12 @@ export default function App() {
                 </div>
                 <div className="ml-4 text-left">
                   <p className="text-sm text-slate-500">WhatsApp</p>
-                  <p className="text-lg text-white font-medium">+6281213014738 </p>
+                  <p className="text-lg text-white font-medium">+6281213014738</p>
                 </div>
               </a>
 
               <a
-                href="https://instagram.com/alexdeveloper"
+                href="https://instagram.com/_.mrafli"
                 className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
