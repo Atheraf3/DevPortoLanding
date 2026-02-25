@@ -55,13 +55,13 @@ const PROJECTS = [
       'https://raw.githubusercontent.com/Capstone-Team-Nutrify/.github/56b5954f90c6f013be934291b006e3a732c9c0bb/profile/nutrify-thumbnail.png?auto=format&fit=crop&q=80&w=800',
   },
   {
-    title: 'Explore Indonesia - Travel Guide',
-    desc: 'Antarmuka obrolan minimalis yang terintegrasi dengan OpenAI API, mendukung markdown dan syntax highlighting.',
-    tags: ['Next.js', 'Tailwind', 'OpenAI API'],
-    github: '#',
-    demo: '#',
+    title: 'Explore Indonesia - Interactive Culture Application',
+    desc: 'Platform ini memperkenalkan kekayaan budaya Indonesia secara sederhana, interaktif, dan tentunya sangat menyenangkan.',
+    tags: ['Kotlin', 'Express.JS', 'Firebase', 'GCP'],
+    github: 'https://github.com/Capstone-ExploreIndonesia',
+    demo: 'https://www.youtube.com/watch?v=G3vvsTXq2vo#',
     image:
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+      'https://ik.imagekit.io/2xthk8ud4/Screenshot%202026-02-24%20133249.png?auto=format&fit=crop&q=80&w=800',
   },
   // {
   //   title: 'Travel Booking App',
