@@ -63,15 +63,14 @@ const PROJECTS = [
     image:
       'https://ik.imagekit.io/2xthk8ud4/Screenshot%202026-02-24%20133249.png?auto=format&fit=crop&q=80&w=800',
   },
-  // {
-  //   title: 'Travel Booking App',
-  //   desc: 'Aplikasi pemesanan perjalanan dengan fitur pencarian destinasi, filter harga, dan integrasi peta.',
-  //   tags: ['React Native', 'Firebase', 'Maps API'],
-  //   github: '#',
-  //   demo: '#',
-  //   image:
-  //     'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800',
-  // },
+  {
+    title: 'Hexamood',
+    desc: 'Alat berbasis Machine Learning untuk membantu Gen Z memantau dan memprediksi tingkat stres mereka.',
+    tags: ['Supabase'],
+    github: 'https://github.com/Riszee/HexaMood',
+    demo: 'https://proceeding.unindra.ac.id/index.php/semnasristek/article/view/8884',
+    image: 'https://ik.imagekit.io/2xthk8ud4/Tumbnail-Hexamood.png?auto=format&fit=crop&q=80&w=800',
+  },
 ];
 
 // --- Komponen UI Reusable ---
