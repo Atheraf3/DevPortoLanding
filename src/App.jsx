@@ -418,73 +418,95 @@ export default function App() {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 px-6 relative overflow-hidden">
+        {/* Background Decorative Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[120px] -z-10" />
+
         <div className="container mx-auto max-w-4xl text-center">
           <SectionHeading subtitle="Tertarik untuk berkolaborasi atau punya penawaran menarik? Mari terhubung.">
             Hubungi Saya
           </SectionHeading>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 md:p-16 shadow-2xl relative z-10 max-w-2xl mx-auto">
-            <p className="text-slate-400 mb-10 text-lg">
-              Saya selalu terbuka untuk mendiskusikan proyek baru, ide kreatif, atau kesempatan
-              menjadi bagian dari visi Anda.
-            </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm"
+          >
+            <div className="max-w-2xl mx-auto space-y-8">
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-white">Mari Berdiskusi!</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Saya selalu terbuka untuk mendiskusikan proyek baru, ide kreatif, atau kesempatan
+                  menjadi bagian dari visi Anda. Hubungi saya melalui salah satu platform di bawah
+                  ini.
+                </p>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  Aktif mencari peluang baru
+                </div>
+              </div>
 
-            <div className="flex flex-col gap-6 items-center">
-              <a
-                href="mailto:r4flimhmmd@gmail.com"
-                className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                  <Mail size={24} />
-                </div>
-                <div className="ml-4 text-left">
-                  <p className="text-sm text-slate-500">Email</p>
-                  <p className="text-lg text-white font-medium">r4flimhmmd@gmail.com</p>
-                </div>
-              </a>
+              <div className="flex flex-wrap justify-center gap-4">
+                {[
+                  {
+                    icon: <Mail size={24} />,
+                    href: 'mailto:r4flimhmmd@gmail.com',
+                    label: 'Email',
+                    color: 'hover:text-emerald-500 hover:border-emerald-500',
+                  },
+                  {
+                    icon: <MessageCircle size={24} />,
+                    href: 'https://wa.me/6281213014738',
+                    label: 'WhatsApp',
+                    color: 'hover:text-green-500 hover:border-green-500',
+                  },
+                  {
+                    icon: <Linkedin size={24} />,
+                    href: 'https://linkedin.com/in/mhmmdrafli3',
+                    label: 'LinkedIn',
+                    color: 'hover:text-blue-500 hover:border-blue-500',
+                  },
+                  {
+                    icon: <Github size={24} />,
+                    href: 'https://github.com/Atheraf3',
+                    label: 'GitHub',
+                    color: 'hover:text-white hover:border-white',
+                  },
+                  {
+                    icon: <Instagram size={24} />,
+                    href: 'https://instagram.com/_.mrafli',
+                    label: 'Instagram',
+                    color: 'hover:text-pink-500 hover:border-pink-500',
+                  },
+                ].map((social, i) => (
+                  <motion.a
+                    key={i}
+                    href={social.href}
+                    aria-label={social.label}
+                    whileHover={{ y: -5 }}
+                    className={`group relative w-14 h-14 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 transition-all duration-300 ${social.color} shadow-lg shadow-black/20`}
+                  >
+                    {social.icon}
+                    {/* Tooltip */}
+                    <span className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-slate-800 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap border border-slate-700 translate-y-2 group-hover:translate-y-0 shadow-xl">
+                      {social.label}
+                      {/* Tooltip Arrow */}
+                      <span className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-800" />
+                    </span>
+                  </motion.a>
+                ))}
+              </div>
 
-              <a
-                href="https://wa.me/6281213014738"
-                className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                  <MessageCircle size={24} />
-                </div>
-                <div className="ml-4 text-left">
-                  <p className="text-sm text-slate-500">WhatsApp</p>
-                  <p className="text-lg text-white font-medium">+6281213014738</p>
-                </div>
-              </a>
-
-              <a
-                href="https://instagram.com/_.mrafli"
-                className="w-full max-w-md p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center hover:border-emerald-500 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                  <Instagram size={24} />
-                </div>
-                <div className="ml-4 text-left">
-                  <p className="text-sm text-slate-500">Instagram</p>
-                  <p className="text-lg text-white font-medium">@_.mrafli</p>
-                </div>
-              </a>
-
-              <div className="flex gap-4 mt-4 justify-center w-full">
-                <a
-                  href="https://linkedin.com/in/mhmmdrafli3"
-                  className="p-3 rounded-full bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500 transition-all"
-                >
-                  <Linkedin size={24} />
-                </a>
-                <a
-                  href="https://github.com/Atheraf3"
-                  className="p-3 rounded-full bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500 transition-all"
-                >
-                  <Github size={24} />
-                </a>
+              <div className="pt-8 border-t border-slate-800/50">
+                <p className="text-slate-500 text-sm mb-6">
+                  Atau kirimkan pesan langsung melalui email
+                </p>
+                <Button href="mailto:r4flimhmmd@gmail.com" icon={Mail} variant="primary">
+                  Kirim Pesan Cepat
+                </Button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
