@@ -61,13 +61,13 @@ const PROJECTS = [
     github: 'https://github.com/Capstone-ExploreIndonesia',
     demo: 'https://www.youtube.com/watch?v=G3vvsTXq2vo#',
     image:
-      'https://ik.imagekit.io/2xthk8ud4/Screenshot%202026-02-24%20133249.png?auto=format&fit=crop&q=80&w=800',
+      'https://ik.imagekit.io/2xthk8ud4/explore-indonesia-thumb.png?updatedAt=1772534741967?auto=format&fit=crop&q=80&w=800',
   },
   {
     title: 'Hexamood',
     desc: 'Alat berbasis Machine Learning untuk membantu Gen Z memantau dan memprediksi tingkat stres mereka.',
-    tags: ['Supabase'],
-    github: 'https://github.com/Riszee/HexaMood',
+    tags: [],
+    github: null,
     demo: 'https://proceeding.unindra.ac.id/index.php/semnasristek/article/view/8884',
     image: 'https://ik.imagekit.io/2xthk8ud4/Tumbnail-Hexamood.png?auto=format&fit=crop&q=80&w=800',
   },
@@ -370,13 +370,16 @@ export default function App() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <a
-                      href={project.github}
-                      className="p-2 bg-slate-800 rounded-full text-white hover:bg-emerald-500 transition-colors"
-                      title="View Code"
-                    >
-                      <Github size={20} />
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        className="p-2 bg-slate-800 rounded-full text-white hover:bg-emerald-500 transition-colors"
+                        title="View Code"
+                      >
+                        <Github size={20} />
+                      </a>
+                    )}
+
                     <a
                       href={project.demo}
                       className="p-2 bg-slate-800 rounded-full text-white hover:bg-emerald-500 transition-colors"
