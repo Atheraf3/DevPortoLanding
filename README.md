@@ -1,6 +1,6 @@
-# DevPortoLanding
+# Portofolio
 
-DevPortoLanding adalah sebuah aplikasi web berbasis React yang berfungsi sebagai landing page portofolio profesional bagi pengembang perangkat lunak. Proyek ini mengedepankan desain minimalis, performa tinggi, dan pengalaman pengguna yang responsif di berbagai perangkat.
+Portofolio adalah sebuah aplikasi web berbasis React yang berfungsi sebagai landing page portofolio profesional bagi pengembang perangkat lunak. Proyek ini mengedepankan desain minimalis, performa tinggi, dan pengalaman pengguna yang responsif di berbagai perangkat.
 
 ## Fitur Utama
 

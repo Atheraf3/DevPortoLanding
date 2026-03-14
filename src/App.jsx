@@ -160,9 +160,9 @@ export default function App() {
             href="#"
             className="text-2xl font-bold text-white tracking-tight flex items-center gap-2"
           >
-            <Code className="text-emerald-500" />
+            <Code className="text-emerald-400" />
             <span>
-              Dev<span className="text-emerald-500">Portfolio</span>.
+              Porto<span className="text-emerald-400">folio</span>.
             </span>
           </a>
 
@@ -241,7 +241,7 @@ export default function App() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                href="https://drive.usercontent.google.com/download?id=1ozOLF2ugRb7RvJ8uQtvbbK7pqeBuCaXm&export=download&authuser=0&confirm=t&uuid=21c8adc6-9dad-4f30-9dfb-1c83d16f7cac&at=APcXIO2jtERFEb__5L9CDKRenW6G:1771662057062"
+                href="https://drive.usercontent.google.com/download?id=1-d59BwPly__rCUaWQMaa6mEC0-_OxIfU&export=download&authuser=0&confirm=t&uuid=a7ab45f3-f097-454c-81bf-4b3505ce7fef&at=AGN2oQ2YFwWM1on6PxF3KV9B6aeZ:1773501828810"
                 variant="outline"
                 icon={ExternalLink}
               >
@@ -514,8 +514,10 @@ export default function App() {
       <footer className="bg-slate-950 border-t border-slate-900 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex justify-center items-center gap-2 mb-4">
-            <Code className="text-emerald-500 w-5 h-5" />
-            <span className="font-bold text-xl text-white">DevPortfolio.</span>
+            <Code className="text-emerald-400 w-5 h-5" />
+            <span className="font-bold text-xl text-white">
+              Porto<span className="text-emerald-400">folio</span>.
+            </span>
           </div>
           <p className="text-slate-500 text-sm mb-6">
             Didesain dan dibangun dengan hati-hati menggunakan React & Tailwind.
