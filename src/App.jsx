@@ -225,9 +225,30 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-6 border border-emerald-500/20">
-              Available for Internships, Freelance, and Full-time.
-            </span>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="mb-6 flex justify-center"
+            >
+              <motion.div
+                animate={{
+                  boxShadow: [
+                    "0px 0px 0px rgba(16, 185, 129, 0)",
+                    "0px 0px 20px rgba(16, 185, 129, 0.3)",
+                    "0px 0px 0px rgba(16, 185, 129, 0)"
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium border border-emerald-500/20"
+              >
+                <div className="relative flex h-2 w-2 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full bg-emerald-400 rounded-full opacity-75 animate-ping"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </div>
+                <span>Available for Internships, Freelance, and Full-time.</span>
+              </motion.div>
+            </motion.div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
               Membangun Pengalaman Digital yang{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
@@ -255,9 +276,24 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center cursor-pointer"
+          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <ChevronDown className="animate-bounce text-slate-500 w-6 h-6" />
+          <motion.div
+            animate={{ 
+              y: [0, 10, 0],
+              opacity: [0.3, 1, 0.3]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            whileHover={{ scale: 1.2 }}
+            className="flex items-center justify-center p-2"
+          >
+            <ChevronDown className="w-8 h-8 text-slate-500 hover:text-emerald-400 transition-colors duration-300" />
+          </motion.div>
         </motion.div>
       </section>
 
@@ -277,7 +313,7 @@ export default function App() {
             >
               <div className="absolute inset-0 bg-emerald-500 rounded-2xl transform rotate-3 group-hover:rotate-2 transition-transform opacity-20"></div>
               <img
-                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=600"
+                src="https://ik.imagekit.io/2xthk8ud4/Gemini_Generated_Image_r0gu93r0gu93r0gu.png?auto=format&fit=crop&q=80&w=400"
                 alt="Profile"
                 className="relative rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 w-full object-cover aspect-[4/5]"
               />
@@ -452,7 +488,7 @@ export default function App() {
                     icon: <Mail size={24} />,
                     href: 'mailto:r4flimhmmd@gmail.com',
                     label: 'Email',
-                    color: 'hover:text-emerald-500 hover:border-emerald-500',
+                    color: 'hover:text-red-500 hover:border-red-500',
                   },
                   {
                     icon: <MessageCircle size={24} />,
@@ -520,7 +556,7 @@ export default function App() {
             </span>
           </div>
           <p className="text-slate-500 text-sm mb-6">
-            Didesain dan dibangun dengan hati-hati menggunakan React & Tailwind.
+            Didesain dan dibangun dengan hati.
           </p>
           <div className="text-slate-600 text-xs">
             &copy; {new Date().getFullYear()} Muhammad Rafli. All rights reserved.
