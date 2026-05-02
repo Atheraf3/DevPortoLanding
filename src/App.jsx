@@ -71,6 +71,14 @@ const PROJECTS = [
     demo: 'https://proceeding.unindra.ac.id/index.php/semnasristek/article/view/8884',
     image: 'https://ik.imagekit.io/2xthk8ud4/Tumbnail-Hexamood.png?auto=format&fit=crop&q=80&w=800',
   },
+  {
+    title: 'Nomophobia Checker',
+    desc: 'Sistem Pakar Berbasis Pengetahuan Untuk deteksi dini NOMOPHOBIA menggunakan instrumen NMPQ.',
+    tags: ['React', 'Tailwind', 'Zustand'],
+    github: 'https://github.com/Atheraf3/SistemPakarNomophobia',
+    demo: 'https://sistem-pakar-nomophobia.vercel.app/',
+    image: 'https://ik.imagekit.io/2xthk8ud4/TA/Sampul.png?auto=format&fit=crop&q=80&w=800',
+  },
 ];
 
 // --- Komponen UI Reusable ---
@@ -389,7 +397,7 @@ export default function App() {
             Galeri Proyek
           </SectionHeading>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-6 px-6 md:mx-0 md:px-0">
             {PROJECTS.map((project, index) => (
               <motion.div
                 key={index}
@@ -397,7 +405,7 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
-                className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/30 transition-all duration-300 shadow-lg hover:shadow-emerald-500/10 flex flex-col"
+                className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/30 transition-all duration-300 shadow-lg hover:shadow-emerald-500/10 flex flex-col w-[85vw] sm:w-[340px] lg:w-[380px] snap-center shrink-0 self-stretch"
               >
                 <div className="relative h-48 overflow-hidden group">
                   <img
