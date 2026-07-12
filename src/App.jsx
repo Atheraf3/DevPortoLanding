@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import anime from 'animejs/lib/anime.es.js';
 import {
   Github,
   Linkedin,
@@ -30,17 +30,17 @@ const SKILLS = [
   {
     name: 'Frontend',
     icon: <Layout className="w-6 h-6" />,
-    tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind'],
+    tools: ['HTML', 'CSS', 'JavaScript', 'React.JS', 'Tailwind'],
   },
   {
     name: 'Backend',
     icon: <Database className="w-6 h-6" />,
-    tools: ['Node.js', 'Express', 'MongoDB', 'Firebase', 'HapiJS'],
+    tools: ['Node.JS', 'Express.JS', 'MongoDB', 'PostgreSQL', 'ASP .NET'],
   },
   {
     name: 'Tools',
     icon: <Terminal className="w-6 h-6" />,
-    tools: ['Git', 'Docker', 'VS Code', 'Postman', 'Vite'],
+    tools: ['Git', 'DBeaver', 'Postman'],
   },
 ];
 
@@ -83,33 +83,16 @@ const PROJECTS = [
 
 // --- Komponen UI Reusable ---
 
-const SectionHeading = ({ children, subtitle }) => (
-  <div className="mb-12 text-center">
-    <motion.h2
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-3xl md:text-4xl font-bold text-slate-100 mb-4"
+const SectionHeading = ({ children }) => (
+  <div className="mb-12 md:mb-16 text-center flex flex-col items-center">
+    <h2
+      className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 pb-2 mb-4 anime-reveal origin-center" data-y="20" data-netflix="true"
     >
       {children}
-    </motion.h2>
-    <motion.div
-      initial={{ opacity: 0, width: 0 }}
-      whileInView={{ opacity: 1, width: '80px' }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.2 }}
-      className="h-1 bg-emerald-500 mx-auto rounded-full mb-4"
+    </h2>
+    <div
+      className="h-1.5 w-24 bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-full origin-center anime-reveal anime-breathing-line" data-scale-x="true"
     />
-    {subtitle && (
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-slate-400 max-w-2xl mx-auto"
-      >
-        {subtitle}
-      </motion.p>
-    )}
   </div>
 );
 
@@ -147,8 +130,88 @@ const Button = ({ children, variant = 'primary', icon: Icon, href, className = '
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: entry.target,
+              translateY: entry.target.dataset.y ? [parseInt(entry.target.dataset.y), 0] : [0, 0],
+              scaleX: entry.target.dataset.scaleX ? [0, 1] : 1,
+              scale: entry.target.dataset.netflix ? [3, 1] : 1,
+              translateX: entry.target.dataset.x ? [parseInt(entry.target.dataset.x), 0] : [0, 0],
+              opacity: [0, 1],
+              duration: entry.target.dataset.netflix ? 1800 : 1000,
+              easing: 'easeOutExpo',
+              delay: entry.target.dataset.delay ? parseInt(entry.target.dataset.delay) : 0,
+              complete: function() {
+                if (entry.target.classList.contains('anime-breathing-line')) {
+                  anime({
+                    targets: entry.target,
+                    scaleX: [1, 1.4, 1],
+                    opacity: [1, 0.6, 1],
+                    duration: 2500,
+                    loop: true,
+                    easing: 'easeInOutSine'
+                  });
+                }
+              }
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  // Handle scroll effect untuk navbar
+    document.querySelectorAll('.anime-reveal').forEach((el) => {
+      el.style.opacity = 0;
+      observer.observe(el);
+    });
+    anime({
+      targets: '.anime-name-letter',
+      translateY: [0, -8, 0],
+      scale: [1, 1.05, 1],
+      easing: 'easeInOutSine',
+      duration: 2500,
+      delay: anime.stagger(100),
+      loop: true
+    });
+
+    anime({
+      targets: '.anime-bounce',
+      translateY: [0, 10, 0],
+      opacity: [0.3, 1, 0.3],
+      duration: 2000,
+      loop: true,
+      easing: 'easeInOutSine'
+    });
+
+    anime({
+      targets: '.anime-pulse-shadow',
+      boxShadow: [
+        '0px 0px 0px rgba(16, 185, 129, 0)',
+        '0px 0px 20px rgba(16, 185, 129, 0.3)',
+        '0px 0px 0px rgba(16, 185, 129, 0)'
+      ],
+      duration: 3000,
+      loop: true,
+      easing: 'easeInOutSine'
+    });
+
+    anime({
+      targets: '.anime-nav-link',
+      translateY: [0, -3, 0],
+      duration: 3000,
+      delay: anime.stagger(200),
+      loop: true,
+      easing: 'easeInOutSine'
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -180,9 +243,41 @@ export default function App() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium hover:text-emerald-400 transition-colors"
+                className="anime-nav-link text-sm font-medium transition-colors inline-block"
               >
-                {link.name}
+                <span
+                    className="inline-block origin-center"
+                    onMouseEnter={(e) => {
+                      anime.remove(e.currentTarget);
+                      anime({
+                        targets: e.currentTarget,
+                        scale: 1.15,
+                        color: '#34d399',
+                        duration: 300,
+                        easing: 'easeOutElastic(1, .6)'
+                      });
+                    }}
+                    onMouseLeave={(e) => {
+                      anime.remove(e.currentTarget);
+                      anime({
+                        targets: e.currentTarget,
+                        scale: 1,
+                        color: '#cbd5e1',
+                        duration: 600,
+                        easing: 'easeOutElastic(1, .6)'
+                      });
+                    }}
+                    onClick={(e) => {
+                      anime({
+                        targets: e.currentTarget,
+                        scale: [0.7, 1.15],
+                        duration: 500,
+                        easing: 'easeOutElastic(1, .3)'
+                      });
+                    }}
+                >
+                  {link.name}
+                </span>
               </a>
             ))}
           </div>
@@ -197,12 +292,10 @@ export default function App() {
         </div>
 
         {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
+        <>
           {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+            <div
+              
               className="md:hidden bg-slate-900 border-b border-slate-800 overflow-hidden"
             >
               <div className="flex flex-col p-6 gap-4">
@@ -217,9 +310,9 @@ export default function App() {
                   </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </nav>
 
       {/* Hero Section */}
@@ -227,46 +320,54 @@ export default function App() {
         {/* Background Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] -z-10" />
 
-        <div className="container mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+        <div className="container mx-auto max-w-4xl text-center anime-reveal" data-y="20">
+          <div
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+            <div
               className="mb-6 flex justify-center"
             >
-              <motion.div
-                animate={{
-                  boxShadow: [
-                    "0px 0px 0px rgba(16, 185, 129, 0)",
-                    "0px 0px 20px rgba(16, 185, 129, 0.3)",
-                    "0px 0px 0px rgba(16, 185, 129, 0)"
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium border border-emerald-500/20"
+              <div
+                className="anime-pulse-shadow inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium border border-emerald-500/20"
               >
                 <div className="relative flex h-2 w-2 items-center justify-center">
                   <span className="absolute inline-flex h-full w-full bg-emerald-400 rounded-full opacity-75 animate-ping"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </div>
                 <span>Available for Internships, Freelance, and Full-time.</span>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-              Membangun Pengalaman Digital yang{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
-                Memukau & Fungsional
+              <span className="flex flex-wrap justify-center">
+                {"Muhammad Rafli".split('').map((char, index) => (
+                  <span key={index} className="anime-name-letter inline-block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 cursor-default">
+                    <span 
+                      className="hover-letter inline-block"
+                      onMouseEnter={(e) => {
+                        anime({
+                          targets: e.currentTarget,
+                          scale: 1.3,
+                          rotate: anime.random(-15, 15),
+                          duration: 400,
+                          easing: 'easeOutElastic(1, .5)'
+                        });
+                      }}
+                      onMouseLeave={(e) => {
+                        anime({
+                          targets: e.currentTarget,
+                          scale: 1,
+                          rotate: 0,
+                          duration: 600,
+                          easing: 'easeOutElastic(1, .5)'
+                        });
+                      }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </span>
+                  </span>
+                ))}
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Halo, saya <span className="text-slate-200 font-semibold">Muhammad Rafli</span>.
-              Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi web modern, cepat, dan
-              responsif.
+            <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed"> Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi modern, cepat, dan responsif.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -277,47 +378,29 @@ export default function App() {
                 Unduh Resume
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center cursor-pointer"
+        <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center cursor-pointer anime-reveal hover:scale-110 transition-transform" data-delay="1000"
           onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <motion.div
-            animate={{ 
-              y: [0, 10, 0],
-              opacity: [0.3, 1, 0.3]
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            whileHover={{ scale: 1.2 }}
-            className="flex items-center justify-center p-2"
+          <div
+            className="flex items-center justify-center p-2 anime-bounce"
           >
             <ChevronDown className="w-8 h-8 text-slate-500 hover:text-emerald-400 transition-colors duration-300" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* About Section */}
       <section id="about" className="py-24 bg-slate-900/50">
         <div className="container mx-auto px-6">
-          <SectionHeading subtitle="Mengenal lebih jauh tentang siapa saya dan apa yang saya lakukan.">
-            Tentang Saya
-          </SectionHeading>
+          <SectionHeading>Tentang Saya</SectionHeading>
 
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative group"
+            <div
+              className="relative group anime-reveal" data-x="-30"
             >
               <div className="absolute inset-0 bg-emerald-500 rounded-2xl transform rotate-3 group-hover:rotate-2 transition-transform opacity-20"></div>
               <img
@@ -325,24 +408,20 @@ export default function App() {
                 alt="Profile"
                 className="relative rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 w-full object-cover aspect-[4/5]"
               />
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
+            <div
+              className="space-y-6 anime-reveal" data-x="30"
             >
-              <h3 className="text-2xl font-bold text-white">Menjembatani Desain & Teknologi</h3>
               <p className="text-slate-400 leading-relaxed">
-                Sebagai mahasiswa Informatika semester akhir, saya memiliki hasrat mendalam pada
-                dunia pengembangan web. Saya percaya bahwa kode yang bersih sama pentingnya dengan
+                Sebagai mahasiswa Informatika semester akhir, saya memiliki keinginan kuat pada
+                dunia software engineering. Saya percaya bahwa kode yang bersih sama pentingnya dengan
                 desain yang indah.
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Saya tidak hanya menulis kode, tetapi juga memecahkan masalah. Fokus saya adalah
+                Saya berusaha tidak hanya menulis kode, tetapi juga memecahkan masalah. Fokus saya adalah
                 menciptakan solusi yang skalabel, mudah dipelihara, dan memberikan pengalaman
-                pengguna yang luar biasa (User Experience).
+                pengguna yang luar biasa.
               </p>
               <div className="mt-8">
                 <div>
@@ -350,7 +429,7 @@ export default function App() {
                   <p className="text-sm text-slate-500">IPK Saat Ini</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -358,19 +437,56 @@ export default function App() {
       {/* Skills Section */}
       <section id="skills" className="py-24 px-6">
         <div className="container mx-auto max-w-6xl">
-          <SectionHeading subtitle="Daftar teknologi dan alat yang saya gunakan untuk mewujudkan ide.">
-            Tech Stack & Keahlian
-          </SectionHeading>
+          <SectionHeading>Tech Stack</SectionHeading>
 
           <div className="grid md:grid-cols-3 gap-6">
             {SKILLS.map((skill, index) => (
-              <motion.div
+              <div
                 key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-emerald-500/50 transition-colors group"
+                className="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-emerald-500/50 transition-colors group anime-reveal cursor-default" data-y="20" data-delay={index * 100}
+                onMouseEnter={(e) => {
+                  const card = e.currentTarget;
+                  const tools = card.querySelectorAll('.skill-tool-item');
+                  
+                  anime.remove([card, tools]);
+                  
+                  anime({
+                    targets: card,
+                    scale: 1.05,
+                    duration: 600,
+                    easing: 'easeOutElastic(1, .6)'
+                  });
+
+                  anime({
+                    targets: tools,
+                    translateX: [0, 10],
+                    color: '#34d399',
+                    duration: 400,
+                    delay: anime.stagger(40),
+                    easing: 'easeOutQuad'
+                  });
+                }}
+                onMouseLeave={(e) => {
+                  const card = e.currentTarget;
+                  const tools = card.querySelectorAll('.skill-tool-item');
+                  
+                  anime.remove([card, tools]);
+                  
+                  anime({
+                    targets: card,
+                    scale: 1,
+                    duration: 600,
+                    easing: 'easeOutElastic(1, .6)'
+                  });
+
+                  anime({
+                    targets: tools,
+                    translateX: 0,
+                    color: '#94a3b8',
+                    duration: 400,
+                    easing: 'easeOutQuad'
+                  });
+                }}
               >
                 <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-emerald-500 mb-4 group-hover:scale-110 transition-transform">
                   {skill.icon}
@@ -378,13 +494,13 @@ export default function App() {
                 <h3 className="text-xl font-bold text-white mb-4">{skill.name}</h3>
                 <ul className="space-y-2">
                   {skill.tools.map((tool) => (
-                    <li key={tool} className="flex items-center text-slate-400 text-sm">
+                    <li key={tool} className="skill-tool-item flex items-center text-slate-400 text-sm">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2" />
                       {tool}
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -393,20 +509,17 @@ export default function App() {
       {/* Projects Section */}
       <section id="projects" className="py-24 bg-slate-900/50">
         <div className="container mx-auto px-6 max-w-6xl">
-          <SectionHeading subtitle="Beberapa proyek pilihan yang telah saya kerjakan.">
-            Galeri Proyek
-          </SectionHeading>
+          <SectionHeading>Galeri Proyek</SectionHeading>
 
-          <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-6 px-6 md:mx-0 md:px-0">
-            {PROJECTS.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/30 transition-all duration-300 shadow-lg hover:shadow-emerald-500/10 flex flex-col w-[85vw] sm:w-[340px] lg:w-[380px] snap-center shrink-0 self-stretch"
-              >
+          <div className="overflow-hidden py-8 -mx-6 md:mx-0">
+            <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+              {[1, 2].map((set) => (
+                <div key={set} className="flex gap-6 pr-6" aria-hidden={set === 2 ? 'true' : 'false'}>
+                  {PROJECTS.map((project, index) => (
+                    <div
+                      key={`${set}-${index}`}
+                      className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/30 transition-all duration-300 shadow-lg hover:shadow-emerald-500/10 flex flex-col w-[85vw] sm:w-[340px] lg:w-[380px] shrink-0 self-stretch hover:-translate-y-2"
+                    >
                 <div className="relative h-48 overflow-hidden group">
                   <img
                     src={project.image}
@@ -448,8 +561,11 @@ export default function App() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
-            ))}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-12">
@@ -466,15 +582,10 @@ export default function App() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[120px] -z-10" />
 
         <div className="container mx-auto max-w-4xl text-center">
-          <SectionHeading subtitle="Tertarik untuk berkolaborasi atau punya penawaran menarik? Mari terhubung.">
-            Hubungi Saya
-          </SectionHeading>
+          <SectionHeading>Hubungi Saya</SectionHeading>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm"
+          <div
+            className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm anime-reveal" data-y="20"
           >
             <div className="max-w-2xl mx-auto space-y-8">
               <div className="space-y-4">
@@ -523,12 +634,11 @@ export default function App() {
                     color: 'hover:text-pink-500 hover:border-pink-500',
                   },
                 ].map((social, i) => (
-                  <motion.a
+                  <a
                     key={i}
                     href={social.href}
                     aria-label={social.label}
-                    whileHover={{ y: -5 }}
-                    className={`group relative w-14 h-14 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 transition-all duration-300 ${social.color} shadow-lg shadow-black/20`}
+                    className={`group relative w-14 h-14 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 transition-all duration-300 ${social.color} shadow-lg shadow-black/20 hover:-translate-y-1`}
                   >
                     {social.icon}
                     {/* Tooltip */}
@@ -537,7 +647,7 @@ export default function App() {
                       {/* Tooltip Arrow */}
                       <span className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-800" />
                     </span>
-                  </motion.a>
+                  </a>
                 ))}
               </div>
 
@@ -550,7 +660,7 @@ export default function App() {
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -563,9 +673,7 @@ export default function App() {
               Porto<span className="text-emerald-400">folio</span>.
             </span>
           </div>
-          <p className="text-slate-500 text-sm mb-6">
-            Didesain dan dibangun dengan hati.
-          </p>
+          <p className="text-slate-500 text-sm mb-6">Didesain dan dibangun dengan hati.</p>
           <div className="text-slate-600 text-xs">
             &copy; {new Date().getFullYear()} Muhammad Rafli. All rights reserved.
           </div>
