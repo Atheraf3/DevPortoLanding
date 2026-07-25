@@ -4,7 +4,7 @@ import {
   Github,
   Linkedin,
   Mail,
-  ExternalLink,
+  // ExternalLink,
   Code,
   Database,
   Layout,
@@ -370,13 +370,13 @@ export default function App() {
             <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed"> Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi modern, cepat, dan responsif.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
+              {/* <Button
                 href="https://drive.usercontent.google.com/download?id=1-d59BwPly__rCUaWQMaa6mEC0-_OxIfU&export=download&authuser=0&confirm=t&uuid=a7ab45f3-f097-454c-81bf-4b3505ce7fef&at=AGN2oQ2YFwWM1on6PxF3KV9B6aeZ:1773501828810"
                 variant="outline"
                 icon={ExternalLink}
               >
                 Unduh Resume
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -404,7 +404,7 @@ export default function App() {
             >
               <div className="absolute inset-0 bg-emerald-500 rounded-2xl transform rotate-3 group-hover:rotate-2 transition-transform opacity-20"></div>
               <img
-                src="https://ik.imagekit.io/2xthk8ud4/Gemini_Generated_Image_r0gu93r0gu93r0gu.png?auto=format&fit=crop&q=80&w=400"
+                src="https://ik.imagekit.io/2xthk8ud4/Gambar%20WhatsApp%202024-11-15%20pukul%2020.07.46_a751b65d.jpg?auto=format&fit=crop&q=80&w=400"
                 alt="Profile"
                 className="relative rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 w-full object-cover aspect-[4/5]"
               />
@@ -423,12 +423,12 @@ export default function App() {
                 menciptakan solusi yang skalabel, mudah dipelihara, dan memberikan pengalaman
                 pengguna yang luar biasa.
               </p>
-              <div className="mt-8">
+              {/* <div className="mt-8">
                 <div>
                   <h4 className="text-emerald-400 font-bold text-lg">3.67</h4>
                   <p className="text-sm text-slate-500">IPK Saat Ini</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -509,7 +509,7 @@ export default function App() {
       {/* Projects Section */}
       <section id="projects" className="py-24 bg-slate-900/50">
         <div className="container mx-auto px-6 max-w-6xl">
-          <SectionHeading>Galeri Proyek</SectionHeading>
+          <SectionHeading>Galeri Projek</SectionHeading>
 
           <div className="overflow-hidden py-8 -mx-6 md:mx-0">
             <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
@@ -568,11 +568,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          {/* <div className="text-center mt-12">
             <Button variant="outline" href="https://github.com/Atheraf3" icon={Github}>
               Lihat Proyek Lainnya di GitHub
             </Button>
-          </div>
+          </div> */}
         </div>
       </section>
 
