@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import {
   Github,
@@ -6,9 +6,6 @@ import {
   Mail,
   // ExternalLink,
   Code,
-  Database,
-  Layout,
-  Terminal,
   Menu,
   X,
   ChevronDown,
@@ -16,32 +13,48 @@ import {
   MessageCircle,
   Globe,
 } from 'lucide-react';
+import {
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiReact,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiPostgresql,
+  SiDotnet,
+  SiGit,
+  SiDbeaver,
+  SiPostman,
+} from 'react-icons/si';
 
 // --- Data & Konfigurasi Konten ---
 
 const NAV_LINKS = [
-  { name: 'Tentang', href: '#about' },
-  { name: 'Keahlian', href: '#skills' },
-  { name: 'Proyek', href: '#projects' },
-  { name: 'Kontak', href: '#contact' },
+  { name: 'Home', href: '#' },
+  { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Contact', href: '#contact' },
 ];
 
-const SKILLS = [
-  {
-    name: 'Frontend',
-    icon: <Layout className="w-6 h-6" />,
-    tools: ['HTML', 'CSS', 'JavaScript', 'React.JS', 'Tailwind'],
-  },
-  {
-    name: 'Backend',
-    icon: <Database className="w-6 h-6" />,
-    tools: ['Node.JS', 'Express.JS', 'MongoDB', 'PostgreSQL', 'ASP .NET'],
-  },
-  {
-    name: 'Tools',
-    icon: <Terminal className="w-6 h-6" />,
-    tools: ['Git', 'DBeaver', 'Postman'],
-  },
+const TECH_ROW_1 = [
+  { name: 'HTML', icon: SiHtml5 },
+  { name: 'CSS', icon: SiCss },
+  { name: 'JavaScript', icon: SiJavascript },
+  { name: 'React', icon: SiReact },
+  { name: 'Tailwind', icon: SiTailwindcss },
+  { name: 'Git', icon: SiGit },
+  { name: 'DBeaver', icon: SiDbeaver },
+  { name: 'Postman', icon: SiPostman },
+];
+
+const TECH_ROW_2 = [
+  { name: 'Node.js', icon: SiNodedotjs },
+  { name: 'Express', icon: SiExpress },
+  { name: 'MongoDB', icon: SiMongodb },
+  { name: 'PostgreSQL', icon: SiPostgresql },
+  { name: 'ASP.NET', icon: SiDotnet },
 ];
 
 const PROJECTS = [
@@ -125,11 +138,54 @@ const Button = ({ children, variant = 'primary', icon: Icon, href, className = '
   return <button className={`${baseStyle} ${variants[variant]} ${className}`}>{content}</button>;
 };
 
+// --- Komponen UI Reusable Tambahan ---
+
+const AnimatedText = ({ text, className = '' }) => (
+  <p className={`cursor-default ${className}`}>
+    {text.split(' ').map((word, i, arr) => (
+      <Fragment key={i}>
+        <span className="anime-desc-word-outer inline-block origin-center">
+          <span 
+            className="anime-desc-word-inner inline-block"
+            onMouseEnter={(e) => {
+              anime.remove(e.currentTarget);
+              anime({
+                targets: e.currentTarget,
+                translateX: anime.random(-30, 30),
+                translateY: anime.random(-30, 30),
+                rotate: anime.random(-15, 15),
+                duration: 400,
+                easing: 'easeOutElastic(1, .5)'
+              });
+            }}
+            onMouseLeave={(e) => {
+              anime.remove(e.currentTarget);
+              anime({
+                targets: e.currentTarget,
+                translateX: 0,
+                translateY: 0,
+                rotate: 0,
+                duration: 600,
+                easing: 'easeOutElastic(1, .5)'
+              });
+            }}
+          >
+            {word}
+          </span>
+        </span>
+        {i < arr.length - 1 ? ' ' : ''}
+      </Fragment>
+    ))}
+  </p>
+);
+
 // --- Komponen Utama ---
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const patternRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -169,15 +225,38 @@ export default function App() {
       el.style.opacity = 0;
       observer.observe(el);
     });
-    anime({
-      targets: '.anime-name-letter',
-      translateY: [0, -8, 0],
-      scale: [1, 1.05, 1],
-      easing: 'easeInOutSine',
-      duration: 2500,
-      delay: anime.stagger(100),
-      loop: true
-    });
+    if (patternRef.current) {
+      const pattern = patternRef.current;
+      pattern.innerHTML = '';
+      const colors = ['#34d399', '#10b981', '#06b6d4', '#0ea5e9', '#2dd4bf', '#38bdf8'];
+      const columns = 24;
+      const segmentHeight = 50;
+
+      for (let i = 0; i < columns; i++) {
+        const x = i * 50;
+        for (let j = 0; j < 8; j++) {
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', x);
+          rect.setAttribute('y', j * segmentHeight);
+          rect.setAttribute('width', 50);
+          rect.setAttribute('height', segmentHeight);
+          rect.setAttribute('fill', colors[Math.floor(Math.random() * colors.length)]);
+          pattern.appendChild(rect);
+
+          anime({
+            targets: rect,
+            translateY: [
+              { value: -20 + Math.random() * 40, duration: 100 + Math.random() * 100 },
+              { value: 0, duration: 1000 + Math.random() * 100 }
+            ],
+            easing: 'easeInOutSine',
+            loop: true,
+            direction: 'alternate',
+            delay: Math.random() * 1000
+          });
+        }
+      }
+    }
 
     anime({
       targets: '.anime-bounce',
@@ -209,6 +288,21 @@ export default function App() {
       easing: 'easeInOutSine'
     });
 
+    anime.timeline({
+      loop: true,
+      direction: 'alternate',
+    })
+    .add({
+      targets: '.anime-desc-word-outer',
+      translateY: [-5, 0],
+      scale: [1.05, 1],
+      color: ['#0ea5e9', '#94a3b8'],
+      duration: 1500,
+      easing: 'easeInOutQuad',
+      delay: anime.stagger(100),
+      endDelay: 75
+    });
+
     return () => observer.disconnect();
   }, []);
 
@@ -223,97 +317,61 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
       {/* Navbar */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800 py-4' : 'bg-transparent py-6'}`}
-      >
-        <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-max transition-all duration-300 ${isScrolled ? 'shadow-lg shadow-emerald-500/10' : 'shadow-md shadow-black/20'}`}>
+        <nav
+          className="flex items-center justify-between bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-full px-6 py-3"
+        >
+          {/* Logo */}
           <a
             href="#"
-            className="text-2xl font-bold text-white tracking-tight flex items-center gap-2"
+            className="text-xl font-bold text-white tracking-tight flex items-center gap-2 md:mr-6"
           >
-            <Code className="text-emerald-400" />
-            <span>
+            <Code size={20} className="text-emerald-400" />
+            <span className="hidden sm:inline-block">
               Porto<span className="text-emerald-400">folio</span>.
             </span>
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 pr-2">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="anime-nav-link text-sm font-medium transition-colors inline-block"
+                className="relative text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 py-1 after:absolute after:-bottom-1 after:left-0 after:h-[1.5px] after:w-full after:origin-center after:scale-x-0 after:bg-white after:transition-transform after:duration-300 hover:after:scale-x-100"
               >
-                <span
-                    className="inline-block origin-center"
-                    onMouseEnter={(e) => {
-                      anime.remove(e.currentTarget);
-                      anime({
-                        targets: e.currentTarget,
-                        scale: 1.15,
-                        color: '#34d399',
-                        duration: 300,
-                        easing: 'easeOutElastic(1, .6)'
-                      });
-                    }}
-                    onMouseLeave={(e) => {
-                      anime.remove(e.currentTarget);
-                      anime({
-                        targets: e.currentTarget,
-                        scale: 1,
-                        color: '#cbd5e1',
-                        duration: 600,
-                        easing: 'easeOutElastic(1, .6)'
-                      });
-                    }}
-                    onClick={(e) => {
-                      anime({
-                        targets: e.currentTarget,
-                        scale: [0.7, 1.15],
-                        duration: 500,
-                        easing: 'easeOutElastic(1, .3)'
-                      });
-                    }}
-                >
-                  {link.name}
-                </span>
+                {link.name}
               </a>
             ))}
           </div>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-slate-300 hover:text-white"
+            className="md:hidden text-slate-400 hover:text-white transition-colors p-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X /> : <Menu />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
-        </div>
+        </nav>
 
         {/* Mobile Menu Dropdown */}
-        <>
-          {isMobileMenuOpen && (
-            <div
-              
-              className="md:hidden bg-slate-900 border-b border-slate-800 overflow-hidden"
-            >
-              <div className="flex flex-col p-6 gap-4">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-lg font-medium hover:text-emerald-400"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 mt-4 md:hidden bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-xl animate-in fade-in slide-in-from-top-4 duration-200">
+            <div className="flex flex-col p-4 gap-2 text-center">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm font-medium text-slate-400 hover:text-white transition-colors py-3"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
-          )}
-        </>
-      </nav>
+          </div>
+        )}
+      </div>
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center justify-center min-h-screen md:min-h-[800px] overflow-hidden">
@@ -336,39 +394,20 @@ export default function App() {
                 <span>Available for Internships, Freelance, and Full-time.</span>
               </div>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-              <span className="flex flex-wrap justify-center">
-                {"Muhammad Rafli".split('').map((char, index) => (
-                  <span key={index} className="anime-name-letter inline-block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 cursor-default">
-                    <span 
-                      className="hover-letter inline-block"
-                      onMouseEnter={(e) => {
-                        anime({
-                          targets: e.currentTarget,
-                          scale: 1.3,
-                          rotate: anime.random(-15, 15),
-                          duration: 400,
-                          easing: 'easeOutElastic(1, .5)'
-                        });
-                      }}
-                      onMouseLeave={(e) => {
-                        anime({
-                          targets: e.currentTarget,
-                          scale: 1,
-                          rotate: 0,
-                          duration: 600,
-                          easing: 'easeOutElastic(1, .5)'
-                        });
-                      }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </span>
-                  </span>
-                ))}
-              </span>
+            <h1 className="w-full max-w-[90vw] md:max-w-3xl lg:max-w-4xl mx-auto mb-6 select-none flex justify-center" aria-label="Muhammad Rafli">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" className="w-full h-auto" aria-hidden="true">
+                <defs>
+                  <pattern id="slidePattern" ref={patternRef} patternUnits="userSpaceOnUse" width="1200" height="200"></pattern>
+                </defs>
+                <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" fontSize="115" fontWeight="900" fill="url(#slidePattern)">
+                  Muhammad Rafli
+                </text>
+              </svg>
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed"> Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi modern, cepat, dan responsif.
-            </p>
+            <AnimatedText 
+              text="Mahasiswa Teknik Informatika yang fokus menciptakan aplikasi modern, cepat, dan responsif." 
+              className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed text-center"
+            />
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {/* <Button
                 href="https://drive.usercontent.google.com/download?id=1-d59BwPly__rCUaWQMaa6mEC0-_OxIfU&export=download&authuser=0&confirm=t&uuid=a7ab45f3-f097-454c-81bf-4b3505ce7fef&at=AGN2oQ2YFwWM1on6PxF3KV9B6aeZ:1773501828810"
@@ -404,25 +443,23 @@ export default function App() {
             >
               <div className="absolute inset-0 bg-emerald-500 rounded-2xl transform rotate-3 group-hover:rotate-2 transition-transform opacity-20"></div>
               <img
-                src="https://ik.imagekit.io/2xthk8ud4/Gambar%20WhatsApp%202024-11-15%20pukul%2020.07.46_a751b65d.jpg?auto=format&fit=crop&q=80&w=400"
+                src="https://ik.imagekit.io/2xthk8ud4/3.png?auto=format&fit=crop&q=80&w=400"
                 alt="Profile"
-                className="relative rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 w-full object-cover aspect-[4/5]"
+                className="relative rounded-2xl shadow-2xl blur-[20px] hover:blur-0 transition-all duration-500 w-full object-cover aspect-[4/5]"
               />
             </div>
 
             <div
               className="space-y-6 anime-reveal" data-x="30"
             >
-              <p className="text-slate-400 leading-relaxed">
-                Sebagai mahasiswa Informatika semester akhir, saya memiliki keinginan kuat pada
-                dunia software engineering. Saya percaya bahwa kode yang bersih sama pentingnya dengan
-                desain yang indah.
-              </p>
-              <p className="text-slate-400 leading-relaxed">
-                Saya berusaha tidak hanya menulis kode, tetapi juga memecahkan masalah. Fokus saya adalah
-                menciptakan solusi yang skalabel, mudah dipelihara, dan memberikan pengalaman
-                pengguna yang luar biasa.
-              </p>
+              <AnimatedText 
+                text="Sebagai mahasiswa Informatika semester akhir, saya memiliki keinginan kuat pada dunia software engineering. Saya percaya bahwa kode yang bersih sama pentingnya dengan desain yang indah." 
+                className="text-lg md:text-xl text-slate-400 leading-relaxed text-justify"
+              />
+              <AnimatedText 
+                text="Saya berusaha tidak hanya menulis kode, tetapi juga memecahkan masalah. Fokus saya adalah menciptakan solusi yang skalabel, mudah dipelihara, dan memberikan pengalaman pengguna yang luar biasa." 
+                className="text-lg md:text-xl text-slate-400 leading-relaxed text-justify"
+              />
               {/* <div className="mt-8">
                 <div>
                   <h4 className="text-emerald-400 font-bold text-lg">3.67</h4>
@@ -435,73 +472,52 @@ export default function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-24 px-6">
+      <section id="skills" className="py-24 px-6 overflow-hidden">
         <div className="container mx-auto max-w-6xl">
           <SectionHeading>Tech Stack</SectionHeading>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {SKILLS.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-emerald-500/50 transition-colors group anime-reveal cursor-default" data-y="20" data-delay={index * 100}
-                onMouseEnter={(e) => {
-                  const card = e.currentTarget;
-                  const tools = card.querySelectorAll('.skill-tool-item');
-                  
-                  anime.remove([card, tools]);
-                  
-                  anime({
-                    targets: card,
-                    scale: 1.05,
-                    duration: 600,
-                    easing: 'easeOutElastic(1, .6)'
-                  });
-
-                  anime({
-                    targets: tools,
-                    translateX: [0, 10],
-                    color: '#34d399',
-                    duration: 400,
-                    delay: anime.stagger(40),
-                    easing: 'easeOutQuad'
-                  });
-                }}
-                onMouseLeave={(e) => {
-                  const card = e.currentTarget;
-                  const tools = card.querySelectorAll('.skill-tool-item');
-                  
-                  anime.remove([card, tools]);
-                  
-                  anime({
-                    targets: card,
-                    scale: 1,
-                    duration: 600,
-                    easing: 'easeOutElastic(1, .6)'
-                  });
-
-                  anime({
-                    targets: tools,
-                    translateX: 0,
-                    color: '#94a3b8',
-                    duration: 400,
-                    easing: 'easeOutQuad'
-                  });
-                }}
-              >
-                <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-emerald-500 mb-4 group-hover:scale-110 transition-transform">
-                  {skill.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">{skill.name}</h3>
-                <ul className="space-y-2">
-                  {skill.tools.map((tool) => (
-                    <li key={tool} className="skill-tool-item flex items-center text-slate-400 text-sm">
-                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2" />
-                      {tool}
-                    </li>
-                  ))}
-                </ul>
+          <div className="flex flex-col gap-16 mt-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
+            
+            {/* Row 1 (Moves Left) */}
+            <div className="flex w-full overflow-hidden">
+              <div className="flex animate-infinite-scroll items-center w-max">
+                {[...TECH_ROW_1, ...TECH_ROW_1].map((tech, i) => (
+                  <div key={i} className="flex flex-col items-center justify-center gap-4 group w-32 md:w-40 shrink-0">
+                    <tech.icon className="text-5xl md:text-6xl text-slate-500 group-hover:text-white transition-colors duration-300" />
+                    <span className="text-slate-400 font-medium group-hover:text-white transition-colors duration-300">{tech.name}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+              <div className="flex animate-infinite-scroll items-center w-max" aria-hidden="true">
+                {[...TECH_ROW_1, ...TECH_ROW_1].map((tech, i) => (
+                  <div key={`duplicate-${i}`} className="flex flex-col items-center justify-center gap-4 group w-32 md:w-40 shrink-0">
+                    <tech.icon className="text-5xl md:text-6xl text-slate-500 group-hover:text-white transition-colors duration-300" />
+                    <span className="text-slate-400 font-medium group-hover:text-white transition-colors duration-300">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Row 2 (Moves Right) */}
+            <div className="flex w-full overflow-hidden">
+              <div className="flex animate-infinite-scroll-reverse items-center w-max">
+                {[...TECH_ROW_2, ...TECH_ROW_2, ...TECH_ROW_2].map((tech, i) => (
+                  <div key={i} className="flex flex-col items-center justify-center gap-4 group w-32 md:w-40 shrink-0">
+                    <tech.icon className="text-5xl md:text-6xl text-slate-500 group-hover:text-white transition-colors duration-300" />
+                    <span className="text-slate-400 font-medium group-hover:text-white transition-colors duration-300">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex animate-infinite-scroll-reverse items-center w-max" aria-hidden="true">
+                {[...TECH_ROW_2, ...TECH_ROW_2, ...TECH_ROW_2].map((tech, i) => (
+                  <div key={`duplicate-${i}`} className="flex flex-col items-center justify-center gap-4 group w-32 md:w-40 shrink-0">
+                    <tech.icon className="text-5xl md:text-6xl text-slate-500 group-hover:text-white transition-colors duration-300" />
+                    <span className="text-slate-400 font-medium group-hover:text-white transition-colors duration-300">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
